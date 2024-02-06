@@ -141,8 +141,7 @@ func (mm *mgoModelImpl) FindAndExec(
 }
 
 func (mm *mgoModelImpl) CountDocuments(d Collection, q bson.M) (int64, error) {
-	opts := options.Count().SetMaxTime(2 * time.Second)
-	return mm.db.Collection(d.GetC()).CountDocuments(mm.ctx, q, opts)
+	return mm.db.Collection(d.GetC()).CountDocuments(mm.ctx, q)
 }
 
 func (mm *mgoModelImpl) isCollectExisted(d DocInter) bool {
@@ -472,8 +471,7 @@ func (mm *mgoModelImpl) PagePipeFind(aggr MgoAggregate, filter bson.M, sort bson
 // ----- New added code -----
 
 func (mm *mgoModelImpl) AggrCountDocuments(aggr MgoAggregate, q bson.M) (int64, error) {
-	opts := options.Count().SetMaxTime(2 * time.Second)
-	return mm.db.Collection(aggr.GetC()).CountDocuments(mm.ctx, q, opts)
+	return mm.db.Collection(aggr.GetC()).CountDocuments(mm.ctx, q)
 }
 
 type countMgoAggregate struct {
